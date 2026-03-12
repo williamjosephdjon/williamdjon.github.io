@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>William J. DJON — Chargé de Développement Analytique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:    #0D1B2A;
+    --ink:     #1C2B3A;
+    --slate:   #3D5166;
+    --mist:    #8A9DB5;
+    --silver:  #C8D4DE;
+    --fog:     #EEF2F6;
+    --paper:   #F8F9FB;
+    --white:   #FFFFFF;
+    --accent:  #C9A84C;
+    --accent2: #E8C97A;
+    --serif:   'Cormorant Garamond', Georgia, serif;
+    --sans:    'Jost', sans-serif;
+  }
+
+  html { font-size: 15px; }
+
+  body {
+    background: var(--fog);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── WRAPPER ─────────────────────────────── */
+  .page {
+    max-width: 860px;
+    margin: 2.5rem auto;
+    background: var(--white);
+    box-shadow: 0 4px 40px rgba(13,27,42,.12), 0 1px 6px rgba(13,27,42,.06);
+    animation: fadeUp .6s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── HEADER ──────────────────────────────── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    background: var(--navy);
+    padding: 2.8rem 3rem 2.4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(201,168,76,.18);
+    pointer-events: none;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 42%;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,.10);
+    pointer-events: none;
+  }
+
+  .header-name {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 3rem;
+    color: var(--white);
+    letter-spacing: .02em;
+    line-height: 1.1;
+  }
+
+  .header-name span {
+    color: var(--accent2);
+    font-style: italic;
+  }
+
+  .header-title {
+    margin-top: .55rem;
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: .78rem;
+    letter-spacing: .20em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .header-sub {
+    margin-top: .25rem;
+    font-size: .82rem;
+    color: var(--mist);
+    letter-spacing: .06em;
+  }
+
+  .header-contact {
+    text-align: right;
+    padding-bottom: .2rem;
+  }
+
+  .header-contact p {
+    font-size: .8rem;
+    color: var(--silver);
+    letter-spacing: .04em;
+    line-height: 1.9;
+  }
+
+  .header-contact .lang {
+    margin-top: .5rem;
+    display: inline-block;
+    font-size: .72rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(201,168,76,.4);
+    padding: .12rem .55rem;
+  }
+
+  /* ── GOLD STRIP ──────────────────────────── */
+  .gold-strip {
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 50%, transparent 100%);
+  }
+
+  /* ── BODY LAYOUT ─────────────────────────── */
+  .body {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+  }
+
+  /* ── SIDEBAR ─────────────────────────────── */
+  .sidebar {
+    background: var(--paper);
+    padding: 2.2rem 1.5rem 2.2rem 2rem;
+    border-right: 1px solid var(--fog);
+  }
+
+  .sidebar-section { margin-bottom: 2rem; }
+
+  .sidebar-heading {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: .68rem;
+    letter-spacing: .20em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: .9rem;
+    padding-bottom: .45rem;
+    border-bottom: 1px solid var(--silver);
+  }
+
+  /* Skills */
+  .skill-item { margin-bottom: .75rem; }
+
+  .skill-name {
+    font-size: .78rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: .22rem;
+    line-height: 1.3;
+  }
+
+  .skill-bar {
+    height: 2px;
+    background: var(--silver);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    transform-origin: left;
+    animation: barGrow .8s ease both;
+  }
+
+  @keyframes barGrow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  /* Tags */
+  .tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+
+  .tag {
+    font-size: .68rem;
+    font-weight: 500;
+    letter-spacing: .04em;
+    color: var(--slate);
+    background: var(--fog);
+    border: 1px solid var(--silver);
+    padding: .18rem .5rem;
+    line-height: 1.4;
+  }
+
+  /* Sidebar text */
+  .sidebar-text {
+    font-size: .78rem;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+
+  .sidebar-item {
+    display: flex;
+    gap: .5rem;
+    align-items: flex-start;
+    margin-bottom: .45rem;
+    font-size: .78rem;
+    color: var(--slate);
+  }
+
+  .sidebar-item .dot {
+    margin-top: .45rem;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ── MAIN ────────────────────────────────── */
+  .main {
+    padding: 2.2rem 2.5rem 2.2rem 2.2rem;
+  }
+
+  /* Section */
+  .section { margin-bottom: 2rem; }
+
+  .section-title {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: .68rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.1rem;
+    padding-bottom: .45rem;
+    border-bottom: 1px solid var(--silver);
+  }
+
+  /* Profile */
+  .profile-text {
+    font-size: .88rem;
+    color: var(--slate);
+    line-height: 1.85;
+    font-style: italic;
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 300;
+  }
+
+  /* Experience entry */
+  .exp { margin-bottom: 1.6rem; }
+
+  .exp-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .exp-title {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.3;
+  }
+
+  .exp-period {
+    font-size: .72rem;
+    font-weight: 500;
+    letter-spacing: .1em;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .exp-company {
+    font-size: .78rem;
+    color: var(--mist);
+    font-weight: 500;
+    letter-spacing: .06em;
+    margin-top: .1rem;
+    margin-bottom: .65rem;
+  }
+
+  /* Sub mission */
+  .mission {
+    margin-bottom: .9rem;
+    padding-left: .9rem;
+    border-left: 2px solid var(--fog);
+  }
+
+  .mission-title {
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--slate);
+    letter-spacing: .04em;
+    margin-bottom: .35rem;
+  }
+
+  .mission-title span {
+    color: var(--accent);
+    margin-right: .4rem;
+  }
+
+  ul.bullets {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul.bullets li {
+    font-size: .8rem;
+    color: var(--slate);
+    line-height: 1.65;
+    padding-left: 1rem;
+    position: relative;
+    margin-bottom: .25rem;
+  }
+
+  ul.bullets li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+  /* Education */
+  .edu-row {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: .8rem;
+    align-items: start;
+    margin-bottom: .9rem;
+  }
+
+  .edu-year {
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    color: var(--accent);
+    padding-top: .08rem;
+    text-align: right;
+  }
+
+  .edu-content {}
+
+  .edu-title {
+    font-size: .82rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+
+  .edu-org {
+    font-size: .74rem;
+    color: var(--mist);
+    margin-top: .1rem;
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--fog);
+    margin: 1.4rem 0;
+  }
+
+  /* Footer */
+  .footer {
+    background: var(--navy);
+    padding: .9rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer p {
+    font-size: .72rem;
+    color: var(--mist);
+    letter-spacing: .08em;
+  }
+
+  .footer .accent { color: var(--accent); }
+
+  /* ── PRINT ───────────────────────────────── */
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; }
+    @page { margin: 0; }
+    .skill-bar-fill { animation: none !important; }
+  }
+
+  @media (max-width: 640px) {
+    .body { grid-template-columns: 1fr; }
+    .header { grid-template-columns: 1fr; }
+    .header-contact { text-align: left; margin-top: 1.2rem; }
+    .main { padding: 1.6rem; }
+    .sidebar { padding: 1.6rem; border-right: none; border-bottom: 1px solid var(--fog); }
+    .exp-header { grid-template-columns: 1fr; gap: .2rem; }
+    .header-name { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div>
+      <div class="header-name">William <span>J.</span> Djon</div>
+      <div class="header-title">Chargé de Développement &amp; Validation Analytique</div>
+      <div class="header-sub">Pharmaceutique · Dispositifs Médicaux · Cosmétique · 11 ans d'expérience</div>
+    </div>
+    <div class="header-contact">
+      <p>Brie-Comte-Robert (77)</p>
+      <p>06 98 72 23 18</p>
+      <p>williamjosephdjon@gmail.com</p>
+      <p>linkedin.com/in/williamdjon</p>
+      <span class="lang">Anglais C1</span>
+    </div>
+  </header>
+  <div class="gold-strip"></div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Analytique</div>
+
+        <div class="skill-item">
+          <div class="skill-name">GC-FID / MS / MSn</div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">LC-QTOF / HRMS</div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">ICP-OES / RF-TOF</div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:95%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">ATG / DSC / GPC</div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">SPME / LL / SL</div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">Rhéologie / Granulométrie</div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:90%"></div></div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Logiciels</div>
+        <div class="tags">
+          <span class="tag">Empower</span>
+          <span class="tag">MassHunter</span>
+          <span class="tag">UNIFI</span>
+          <span class="tag">Chromeleon</span>
+          <span class="tag">OpenLab</span>
+	  <span class="tag">Minitab</span>
+          <span class="tag">SPOTFIRE</span>
+          <span class="tag">LIMS</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Réglementation</div>
+        <div class="tags">
+          <span class="tag">ICH Q2/Q14</span>
+          <span class="tag">GxP</span>
+          <span class="tag">ISO 10993</span>
+          <span class="tag">ISO 17025</span>
+          <span class="tag">ISO 9001</span>
+          <span class="tag">ISO 14224</span>
+          <span class="tag">ISO 55000</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Gestion documentaire</div>
+        <div class="tags">
+          <span class="tag">Veeva Vault</span>
+          <span class="tag">Ennov</span>
+          <span class="tag">Qualipso</span>
+          <span class="tag">DocuSign</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Savoir-faire</div>
+        <div class="sidebar-item"><div class="dot"></div><div>Validation IQ/OQ/PQ</div></div>
+        <div class="sidebar-item"><div class="dot"></div><div>Développement end-to-end</div></div>
+        <div class="sidebar-item"><div class="dot"></div><div>Data gouvernance</div></div>
+        <div class="sidebar-item"><div class="dot"></div><div>Amélioration continue</div></div>
+        <div class="sidebar-item"><div class="dot"></div><div>Gestion de projet</div></div>
+        <div class="sidebar-item"><div class="dot"></div><div>Encadrement d'équipes</div></div>
+        <div class="sidebar-item"><div class="dot"></div><div>Coordination sous-traitants</div></div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- PROFIL -->
+      <section class="section">
+        <div class="section-title">Profil</div>
+        <p class="profile-text">
+          Spécialiste en développement et validation analytique avec 11 ans d'expérience en environnement pharmaceutique, dispositifs médicaux et cosmétique. Expertise en pilotage de projets analytiques end-to-end, implémentation d'équipements, gouvernance des données et amélioration continue. Autonome, rigoureux, mon travail est pleinement accès dans le développement de mes compétences.
+        </p>
+      </section>
+
+      <!-- EXPÉRIENCES -->
+      <section class="section">
+        <div class="section-title">Expériences</div>
+
+        <!-- Capgemini -->
+        <div class="exp">
+          <div class="exp-header">
+            <div class="exp-title">Consultant Sénior — Life Science</div>
+            <div class="exp-period">2023 → Présent</div>
+          </div>
+          <div class="exp-company">Capgemini Engineering · Issy-les-Moulineaux (92)</div>
+
+          <div class="mission">
+            <div class="mission-title"><span>01</span>Ingénieur Développement Analytique — Sanofi <em style="font-weight:300;color:var(--mist)">(13 mois)</em></div>
+            <ul class="bullets">
+              <li>Pilotage des projets analytiques et référent technique : Support aux collaborateurs, troubleshooting, SOPs</li>
+              <li>Implémentation et mise en service de 3 équipements et logiciels analytiques (dont SPOTFIRE) - UPLC/CAD-UV, RF/TOF, GC/FID-MS et formation de 5 collaborateurs</li>
+              <li>Réalisation d'études d'identification structurale d'intermédiare réactionnel par UPLC/QTOF (ZEVO G2-SX)</li>
+              <li>Gestion du laboratoire : suivi des stocks, planification des analyses et reporting d'avancement</li>
+            </ul>
+          </div>
+
+          <div class="mission">
+            <div class="mission-title"><span>02</span>Ingénieur MSAT — Upstream Process, Sanofi <em style="font-weight:300;color:var(--mist)">(3 mois)</em></div>
+            <ul class="bullets">
+              <li>Mise à jour documentaire des procédés de fabrication biologiques (Process Description, protocoles, medium storage) en conformité GxP</li>
+            </ul>
+          </div>
+
+          <div class="mission">
+            <div class="mission-title"><span>03</span>Chargé de Gestion des Actifs Laboratoire — Sanofi <em style="font-weight:300;color:var(--mist)">(15 mois)</em></div>
+            <ul class="bullets">
+              <li>Audit et gouvernance de 55K actifs laboratoire : structuration des bases de données en alignement ISO 14224 / ISO 55000</li>
+              <li>Pilotage des activités de normalisation dans un cadre international, échanges avec le Project Committee</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Calyxia -->
+        <div class="exp">
+          <div class="exp-header">
+            <div class="exp-title">Technicien Support Analytique</div>
+            <div class="exp-period">2022 → 2023</div>
+          </div>
+          <div class="exp-company">Calyxia · Bonneuil-sur-Marne (94) · 7 mois</div>
+          <ul class="bullets">
+            <li>Développement et validation de méthodes analytiques de substances actives micro-encapsulées (GC, ATG, DSC)</li>
+            <li>Optimisation des flux d'analyse : réduction des délais de rendu résultats de 20% par automatisation des workflows de retraitement & optimisation de la gestion des analyses</li>
+            <li>Rédaction de SOPs, support aux clients internes et externes</li>
+          </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Septodont -->
+        <div class="exp">
+          <div class="exp-header">
+            <div class="exp-title">Technicien Analytique / Chargé de Développement Analytique</div>
+            <div class="exp-period">2015 → 2022</div>
+          </div>
+          <div class="exp-company">Septodont · Saint-Maur-des-Fossés (94) · 7 ans 4 mois</div>
+          <ul class="bullets">
+            <li>Gestion de projets de caractérisation chimique & extractible / relargable pour les évaluations biologiques et toxicologiques, gestion des analyses en sous-traitance, études d’agrément de matières premières</li>
+            <li>Développement et validation de méthodes de dosage d'impuretés dans les anesthésiques locaux (LC / GC / ICP)</li>
+            <li>Gestion du parc analytique : Implémentation d'équipements LC-QTOF, GC-FID/MS, GC-MSn — protocoles de qualification et formation des utilisateurs</li>
+            <li>Encadrement opérationnel de 2 alternants et 1 technicien, définition des stratégies analytiques</li>
+            <li>Gestion du pôle amélioration continue : automatisation des traitements de données, standardisation des flux analytiques, veille réglementaire</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- FORMATION -->
+      <section class="section">
+        <div class="section-title">Formation &amp; Développement professionnel</div>
+
+        <div class="edu-row">
+          <div class="edu-year">2025</div>
+          <div class="edu-content">
+            <div class="edu-title">Démarche &amp; Processus Qualification / Validation</div>
+            <div class="edu-org">ASPEC · 3 jours</div>
+          </div>
+        </div>
+        <div class="edu-row">
+          <div class="edu-year">2024</div>
+          <div class="edu-content">
+            <div class="edu-title">Certification Google Project Management · Agile Leadership</div>
+            <div class="edu-org">Coursera (7 modules) · Udemy</div>
+          </div>
+        </div>
+        <div class="edu-row">
+          <div class="edu-year">2022</div>
+          <div class="edu-content">
+            <div class="edu-title">LCMS QTOF &amp; Logiciel UNIFI</div>
+            <div class="edu-org">Waters · 2 jours</div>
+          </div>
+        </div>
+        <div class="edu-row">
+          <div class="edu-year">2021</div>
+          <div class="edu-content">
+            <div class="edu-title">Interprétation Structurale LC &amp; GC</div>
+            <div class="edu-org">CDP Innovation · 2 jours</div>
+          </div>
+        </div>
+        <div class="edu-row">
+          <div class="edu-year">2016</div>
+          <div class="edu-content">
+            <div class="edu-title">Licence Chimie Analytique — Développement du Médicament</div>
+            <div class="edu-org">Université Paris-Est Créteil · Bac +3</div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Disponible avec un préavis de <span class="accent">3 mois</span></p>
+    <p>Références disponibles sur demande</p>
+  </footer>
+
+</div>
+</body>
+</html>
